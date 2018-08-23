@@ -1,80 +1,111 @@
-# Site settings 配置站点
-title: '张海超的个人博客'
-description: 'java工程师/伪极客/，热爱技术。很高兴能在这里与你分享我对技术和生活的思考。'
-keyword: '张海超, 张海超的个人博客, 张海超的博客, 后端, 后端开发, 后端博客, java, python, android'
-url: 'https://zhanghaichao520.github.io/' # your host
+# Site settings
+title: 张海超的个人博客
+SEOTitle: 张海超的个人博客
+header-img: img/post-bg-coffee.jpg
+email: zhanghaichao961@gmail.com
+description: "java工程师，热爱技术。很高兴能在这里与你分享我对技术和生活的思考。"
+keyword: "张海超, 张海超的个人博客, 张海超的博客, 后端, 后端开发, 后端博客, java, python, android"
+url: "http://zhanghaichao520.github.io"          # your host, for absolute URL
+baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
+github_repo: "https://github.com/zhanghaichao520/zhanghaichao520.github.io" # you code repository
 
-# if you don't need baseurl, you should leave this value blank.
-baseurl: ''
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "Goals determine what you going to be!"
+sidebar-avatar: /img/avatar_m.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
-# Navigation links
-nav:
-  home: '/'
-  tags: '/tags.html'
 
-# Footer
-footer:
-  since: 2018
 
-# Author 配置博主信息
-author: '张海超'
-nickname: '沐泽'
-bio: 'java开发，热爱技术&新鲜事物，你的指尖拥有改变世界的力量'
-avatar: '/assets/img/profile.jpg'
+# SNS settings
+RSS: false
+weibo_username:     丶沐泽丶
+zhihu_username:     xiao-chao-99-1
+github_username:    zhanghaichao520
+facebook_username:  张海超
+#jianshu_username:   e71990ada2fd
 
-# Search
-search: true
 
-# Night mode
-nightMode: true
 
-# Comments 评论功能
-comments:
-  disqus: false
-  disqus_url: ''
 
-# MathJax 公式支持 by Ray-Eldath
-mathjax: true
-
-# Share
-social-share: true
-social-share-items: ['wechat', 'weibo', 'douban', 'twitter']
-
-# theme color 主题皮肤
-theme-color: 'default'  # pink or default
-
-# Post header background patterns (when the post no cover): circuitBoard, overlappingCircles, food, glamorous, ticTacToe, seaOfClouds
-postPatterns: 'circuitBoard'
-
-# SNS settings 配置社交网站
-# url: email, weibo, zhihu, twitter, instagram, juejin, github, douban, facebook, dribble, uicn, jianshu, medium, linkedin
-sns:
-  weibo: '//weibo.com/u/3534383631?refer_flag=1001030101_&is_all=1'
-  email: 'zhang_haichao@163.com'
-  facebook: '//www.facebook.com/people/张海超/100010723339047'
-  github: '//github.com/zhanghaichao520'
-
-# Tags 设置标签
-recommend-tags: true # whether or not display recommend-tags on the sidebar
-recommend-condition-size: 12 # a tag will be recommended if the size of it is more than this value
 
 # Build settings
-paginate: 6
-paginate_path: 'page:num'
-exclude: ['node_modules', 'dev', 'package.json', 'gulpfile.js', '.gitignore', 'README.md']
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
-# Markdown
+
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+gems: [jekyll-paginate]
+
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
 markdown: kramdown
 highlighter: rouge
 kramdown:
-  input: GFM
+  input: GFM                            # use Github Flavored Markdown !important
 
-# RSS
-RSS: false
 
-# Permalink
-# See: https://github.com/kaeyleo/jekyll-theme-H2O/issues/35
-permalink: /:year/:month/:day/:title.html
 
-# Plugins
-plugins: [jekyll-paginate]
+# 评论系统
+# Disqus（https://disqus.com/）
+# disqus_username: qiubaiying
+
+# Gitalk
+gitalk:
+  enable: true    #是否开启Gitalk评论
+  clientID: 66d262e177464fc80cbd                            #生成的clientID
+  clientSecret: f88031b7e98d94348eef3f5f186169068a35cbef    #生成的clientSecret
+  repo: zhanghaichao520.github.io    #仓库名称
+  owner: zhanghaichao520    #github用户名
+  admin: zhanghaichao520
+  distractionFreeMode: true #是否启用类似FB的阴影遮罩
+
+
+# 统计
+
+# Analytics settings
+# Baidu Analytics
+#ba_track_id: b50bf2b12b5338a1845e33832976fd68
+
+# Google Analytics
+ga_track_id: 'UA-90855596-1'            # Format: UA-xxxxxx-xx
+ga_domain: auto            # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+
+
+
+
+
+# Featured Tags
+featured-tags: true                     # 是否使用首页标签
+featured-condition-size: 0              # 相同标签数量大于这个数，才会出现在首页
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+
+
+
+# Friends
+friends: [
+    {
+        title: "周老师",
+        href: "https://github.com/zhouzhou-96"
+    },{
+        title: "Apple",
+        href: "https://apple.com"
+    },{
+        title: "Apple Developer",
+        href: "https://developer.apple.com/"
+    }
+]
