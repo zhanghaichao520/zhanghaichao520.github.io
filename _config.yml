@@ -1,6 +1,6 @@
 # Site settings
 title: 张海超的个人博客
-SEOTitle: 张海超的个人博客
+SEOTitle: 沐泽
 header-img: img/post-bg-coffee.jpeg
 email: zhanghaichao961@gmail.com
 description: "java工程师，热爱技术。很高兴能在这里与你分享我对技术和生活的思考。"
@@ -11,17 +11,17 @@ github_repo: "https://github.com/zhanghaichao520/zhanghaichao520.github.io" # yo
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Goals determine what you going to be!"
+sidebar-about-description: "我们一起玩，顺便赚点钱，然后活到一百岁"
 sidebar-avatar: /img/avatar_m.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
 # SNS settings
 RSS: false
-weibo_username:     丶沐泽丶
+weibo_username:     u/3534383631?refer_flag=1001030101_&is_all=1
 zhihu_username:     xiao-chao-99-1
 github_username:    zhanghaichao520
-facebook_username:  张海超
+facebook_username:  profile.php?id=100010723339047
 #jianshu_username:   e71990ada2fd
 
 
