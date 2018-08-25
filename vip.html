@@ -24,7 +24,18 @@ header-img: "img/post-bg-e2e-ux.jpg"
 <!-- 背景图片 -->
 <html>
 <!-- 背景图片 -->
-
+<header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading" id="tag-heading">
+                    <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+                    <span class="subheading">{{ page.description }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
     <div class="container" style="padding-top:10px;">
 	
 	<div class="col-md-14 column" style="margin-top: -10px;margin-bottom: -10px;">
