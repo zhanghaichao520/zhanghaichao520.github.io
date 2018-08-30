@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      2018-08-30-水印自动去除
+title:      论文分享-水印自动去除
 subtitle:  《On the Effectiveness of Visible Watermarks》解读
 date:       2018-08-30
 author:     zhanghaichao
@@ -14,19 +14,19 @@ tags:
 >水印在日常生活中随处可见，它是一种保护图像图片版权的机制，防止未经许可或授权的使用；而自动去水印的计算机算法的存在却可使用户轻松获取无水印图像，这是由于当前的水印技术存在一个漏洞：水印通常被一致地添加到很多图像上，这种一致性可用于反转水印的处理过程。有鉴于此，谷歌在论文《On the Effectiveness of Visible Watermarks》中针对可泛化的多图像抠图算法，提出了可使水印足够鲁棒以免被从单个图像中去除的方法，而且还更具抵抗性，可以避免水印从图像集中大批量去除。谷歌在其博客中对论文成果做了更详实介绍。
 
 <br>
-###简介：
+### 简介：
 水印使用的标准做法是假设他们防止了消费者获取干净的图片，确保没有未经许可或授权的使用。然而，最近在 CVPR 2017 上出现的一篇名为《On The Effectiveness Of Visible Watermarks》的论文中，我们发现一种计算机算法可以越过这一保护，自动去除水印，使用户轻松获取不带水印的干净图像。  
 看一下去除水印的效果:<br><br>
-![去除水印demo](../post_img/2018-08-30-水印自动去除--《On the Effectiveness of Visible Watermarks》解读/reconstructed.png)
+![去除水印demo](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/reconstructed.png?raw=true)
 <br><br>
 文中有理解错误之处，欢迎大家交流指出。
 <br><br>
-###论文摘要
+### 论文摘要
 
 众所周知，水印在标记和保护版权上有着重要的作用。在文章中，四位作者并未用到深度学习方法对水印进行处理，而是单单采用了传统的图像处理和优化方法。通过对大量图像水印的一致性进行分析，从而自动检测水印和恢复原本图像。作者们提出了一种新型算法，通过输入图片集合，该算法能过分离“前景”（水印），“阿尔法层”（Alpha matte）和“背景”（原图），进而还原图像。以此同时，作者们还探究水印嵌入时，不同类型的不一致性，从而探讨了更高鲁棒性和安全性的加水印方案。使得可视水印不单单对单一图片的擦除具有高抵抗性，还使得对大规模图片集也能保持高抵抗性。
 <br><br>
 
-###算法
+### 算法
 
 基于单张图像去除水印的难度还是很大的。所以论文中采用的方法分为三步：  
 1. 搜集使用同一个水印的大量图像  
@@ -35,7 +35,7 @@ tags:
 <br>
 如下图所示
 <br><br>
-![步骤](../post_img/2018-08-30-水印自动去除--《On the Effectiveness of Visible Watermarks》解读/teaser.jpg)
+![步骤](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/teaser.jpg?raw=true)
 <br><br>
 
 **在了解完大致步骤之后我们需要对加了水印的图片进行数学建模。图片模型如下:**  
@@ -60,7 +60,7 @@ tags:
 但是因为 图像集中的 W 和α 的一致性，以及自然图像的先验知识，可以全自动的求解上述问题，得到很高精度的解。
 <br><br>
 
-###研究这篇论文收集的资料：
+### 研究这篇论文收集的资料：
 
 1. [论文地址](http://openaccess.thecvf.com/content_cvpr_2017/papers/Dekel_On_the_Effectiveness_CVPR_2017_paper.pdf)
 
@@ -73,9 +73,9 @@ tags:
 
 4. 关于去除水印的GitHub源码
 
-- [link1](https://github.com/rohitrango/automatic-watermark-detection)
+   - [link1](https://github.com/rohitrango/automatic-watermark-detection)
 
-- [link2](https://github.com/SixQuant/nowatermark),去除效果不是很好.
+   - [link2](https://github.com/SixQuant/nowatermark)（去除效果不是很好.）
 
 5. 视频智能去水印：从数学建模到工程实现。主要是从视频中提取图片，然后删除图片中的原有水印，在加上新的水印。[地址](https://baijiahao.baidu.com/s?id=1585595777890022460&wfr=spider&for=pc)
 
