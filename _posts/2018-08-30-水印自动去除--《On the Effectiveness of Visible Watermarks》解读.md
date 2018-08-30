@@ -59,6 +59,8 @@ tags:
 对于 K个彩色图像，每个像素有 3K 个方程 和 3(K + 1) + 1 个变量,这个多图像消光问题仍然没有被确定。  
 但是因为 图像集中的 W 和α 的一致性，以及自然图像的先验知识，可以全自动的求解上述问题，得到很高精度的解。
 <br><br>
+我们去除水印的算法包括几个步骤，如下图所示： 
+![](https://img-blog.csdn.net/20170830084342888?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemhhbmdqdW5oaXQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ### 研究这篇论文收集的资料：
 
