@@ -13,7 +13,7 @@ tags:
 ---
 >水印在日常生活中随处可见，它是一种保护图像图片版权的机制，防止未经许可或授权的使用；而自动去水印的计算机算法的存在却可使用户轻松获取无水印图像，这是由于当前的水印技术存在一个漏洞：水印通常被一致地添加到很多图像上，这种一致性可用于反转水印的处理过程。有鉴于此，谷歌在论文《On the Effectiveness of Visible Watermarks》中针对可泛化的多图像抠图算法，提出了可使水印足够鲁棒以免被从单个图像中去除的方法，而且还更具抵抗性，可以避免水印从图像集中大批量去除。谷歌在其博客中对论文成果做了更详实介绍。
 
-### 简介
+### 1、简介
 水印使用的标准做法是假设他们防止了消费者获取干净的图片，确保没有未经许可或授权的使用。然而，最近在 CVPR 2017 上出现的一篇名为《On The Effectiveness Of Visible Watermarks》的论文中，我们发现一种计算机算法可以越过这一保护，自动去除水印，使用户轻松获取不带水印的干净图像。
 <br>  
 看一下去除水印的效果:<br>
@@ -21,12 +21,12 @@ tags:
 <br>
 文中有理解错误之处，欢迎大家交流指出。
 <br>
-### 论文摘要
+### 2、论文摘要
 
 众所周知，水印在标记和保护版权上有着重要的作用。在文章中，四位作者并未用到深度学习方法对水印进行处理，而是单单采用了传统的图像处理和优化方法。通过对大量图像水印的一致性进行分析，从而自动检测水印和恢复原本图像。作者们提出了一种新型算法，通过输入图片集合，该算法能过分离“前景”（水印），“阿尔法层”（Alpha matte）和“背景”（原图），进而还原图像。以此同时，作者们还探究水印嵌入时，不同类型的不一致性，从而探讨了更高鲁棒性和安全性的加水印方案。使得可视水印不单单对单一图片的擦除具有高抵抗性，还使得对大规模图片集也能保持高抵抗性。
 <br><br>
 
-### 算法
+### 3、算法( An Attack on Watermarked Collections )
 
 基于单张图像去除水印的难度还是很大的。所以论文中采用的方法分为三步：  
 1. 搜集使用同一个水印的大量图像  
@@ -60,7 +60,38 @@ tags:
 但是因为 图像集中的 W 和α 的一致性，以及自然图像的先验知识，可以全自动的求解上述问题，得到很高精度的解。
 <br><br>
 我们去除水印的算法包括几个步骤，如下图所示： 
-![](https://img-blog.csdn.net/20170830084342888?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemhhbmdqdW5oaXQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+<br>
+![图2.自动水印提取管道](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/Figure2.png?raw=true)
+<br>
+>(1)算法首先估计水印（alpha遮罩和水印图像），然后通过检测整个集合中所有图像的梯度将水印定位，除非空间变换，这个初始估计是正确的。  
+(2)对齐的检测用于估计初始的alpha遮罩，并且细化估计水印层。  
+(3)然后将它们用作我们的多图像消光优化的初始化。 
+ 
+所以我们首先来解决使用相同的 W 和 α 加水印的问题，然后再考虑 使用不同的 W 和 α 加水印的问题
+
+#### 3.1 Initial Watermark Estimation & Detection
+I. Estimating the Matted Watermark(估计Matted水印)  
+第一步是对初始的水印位置的估计与检测，核心思想是计算水印图像梯度的中值，通过对 K 张图片的迭代，水印的梯度值会得到收敛，但是会有一个位移偏差，之后会修正这个偏差。
+<br>
+计算公式：
+<br><br>
+![](https://www.zhihu.com/equation?tex=%5Cnabla+%5Cwidehat%7BW%7D_%7Bm%7D%28p%29+%3D+median_%7Bk%7D+%28%5Cnabla+%5Cwidehat%7BJ%7D_%7Bk%7D%28p%29+%29)
+<br><br>
+理论上当 K 越大收敛会越好，但事实是某一区间时会达到趋于平稳，对每个像素的x和y方向分别计算。
+
+![ 图3.初始水印估计和检测。](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/Figure3.png?raw=true)
+
+>（a）用户在单个图像中围绕水印提供了一个粗略的边界框（对于网络上的当前库存集，这不需要;参见文本）。  
+（b）（a）的梯度大小。  
+（c）水印检测和估计的2次迭代之后的集合中的中值梯度的幅度（见第3.1节）
+
+我们通过Canny得到的 edge map 来定位出水印的外接矩形框，这样就修正了上面的位移偏差
+
+II. Watermark Detection(水印检测)  
+给定估计到的水印梯度 ，我们使用边缘模板匹配算法 Chamfer Distance 检测出所有图像中的水印位置.
+
+水印梯度的初始化可以通过人为框出水印区域来，也可以利用水印位置的先验知识（如果有的话）
+
 
 ### 研究这篇论文收集的资料：
 
