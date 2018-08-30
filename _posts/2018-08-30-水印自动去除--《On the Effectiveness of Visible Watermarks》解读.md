@@ -13,7 +13,6 @@ tags:
 ---
 >水印在日常生活中随处可见，它是一种保护图像图片版权的机制，防止未经许可或授权的使用；而自动去水印的计算机算法的存在却可使用户轻松获取无水印图像，这是由于当前的水印技术存在一个漏洞：水印通常被一致地添加到很多图像上，这种一致性可用于反转水印的处理过程。有鉴于此，谷歌在论文《On the Effectiveness of Visible Watermarks》中针对可泛化的多图像抠图算法，提出了可使水印足够鲁棒以免被从单个图像中去除的方法，而且还更具抵抗性，可以避免水印从图像集中大批量去除。谷歌在其博客中对论文成果做了更详实介绍。
 
-<br>
 ### 简介
 水印使用的标准做法是假设他们防止了消费者获取干净的图片，确保没有未经许可或授权的使用。然而，最近在 CVPR 2017 上出现的一篇名为《On The Effectiveness Of Visible Watermarks》的论文中，我们发现一种计算机算法可以越过这一保护，自动去除水印，使用户轻松获取不带水印的干净图像。
 <br>  
@@ -43,19 +42,19 @@ tags:
 <br>
 水印图像 J 通常通过将水印 W 叠加到自然图像 I 来获得。
 <br><br>
-![](https://www.zhihu.com/equation?tex=J%28p%29%3D%5Calpha%28p%29W%28p%29%2B%281-%5Calpha%28p%29%29I%28p%29+)（1）
+![](https://www.zhihu.com/equation?tex=J%28p%29%3D%5Calpha%28p%29W%28p%29%2B%281-%5Calpha%28p%29%29I%28p%29+)
 <br><br>
 其中p =（x，y）是像素位置，并且α（p）是空间变化的不透明度或α无光泽。 最常用的水印是半透明的，以保持底层的图像内容部分可见。 也就是说，对于所有像素，α（p）<1，或者α= c·αn，其中c <1是常数混合因子，αn∈[0,1]是归一化的α遮罩。 类似于自然图像消光，对于αn，大多数像素只是背景（αn（p）= 0）或仅前景（αn（p）= 1）。
 <br><br>
 一旦得到了 W 和 α，那么原始图像就很容易得到:
 <br><br>
-![](https://www.zhihu.com/equation?tex=I%EF%BC%88p%EF%BC%89%3D%5Cfrac%7BJ%28p%29-%5Calpha%28p%29W%28p%29%7D%7B1-%5Calpha%28p%29%7D)(2)
+![](https://www.zhihu.com/equation?tex=I%EF%BC%88p%EF%BC%89%3D%5Cfrac%7BJ%28p%29-%5Calpha%28p%29W%28p%29%7D%7B1-%5Calpha%28p%29%7D)
 <br><br>
 对于单张图像的情况，给定J 去得到 I 是很难的，因为 这个问题是 under-determined， 变量个数大于方程的个数（there are fewer equations than unknowns）
 <br><br>
 但是同一个水印通常以同一种方式被加到许多图像上去。对于一组使用了相同的 W 和α 的图像，可以用下面的公式表示 
 <br><br>
-![](https://www.zhihu.com/equation?tex=J_%7Bk%7D%3D%5Calpha+W%2B%281-%5Calpha%29I_%7Bk%7D%2C+k%3D1%2C...%2CK)(3)
+![](https://www.zhihu.com/equation?tex=J_%7Bk%7D%3D%5Calpha+W%2B%281-%5Calpha%29I_%7Bk%7D%2C+k%3D1%2C...%2CK)
 <br><br>
 对于 K个彩色图像，每个像素有 3K 个方程 和 3(K + 1) + 1 个变量,这个多图像消光问题仍然没有被确定。  
 但是因为 图像集中的 W 和α 的一致性，以及自然图像的先验知识，可以全自动的求解上述问题，得到很高精度的解。
