@@ -24,7 +24,7 @@ tags:
 ### 2、论文摘要
 
 众所周知，水印在标记和保护版权上有着重要的作用。在文章中，四位作者并未用到深度学习方法对水印进行处理，而是单单采用了传统的图像处理和优化方法。通过对大量图像水印的一致性进行分析，从而自动检测水印和恢复原本图像。作者们提出了一种新型算法，通过输入图片集合，该算法能过分离“前景”（水印），“阿尔法层”（Alpha matte）和“背景”（原图），进而还原图像。以此同时，作者们还探究水印嵌入时，不同类型的不一致性，从而探讨了更高鲁棒性和安全性的加水印方案。使得可视水印不单单对单一图片的擦除具有高抵抗性，还使得对大规模图片集也能保持高抵抗性。
-<br><br>
+<br>
 
 ### 3、算法( An Attack on Watermarked Collections )
 
@@ -41,24 +41,24 @@ tags:
 **在了解完大致步骤之后我们需要对加了水印的图片进行数学建模。图片模型如下:**  
 <br>
 水印图像 J 通常通过将水印 W 叠加到自然图像 I 来获得。
-<br><br>
+<br>
 ![](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/fc1.png?raw=true)
-<br><br>
+<br>
 其中p =（x，y）是像素位置，并且α（p）是空间变化的不透明度或α无光泽。 最常用的水印是半透明的，以保持底层的图像内容部分可见。 也就是说，对于所有像素，α（p）<1，或者α= c·αn，其中c <1是常数混合因子，αn∈[0,1]是归一化的α遮罩。 类似于自然图像消光，对于αn，大多数像素只是背景（αn（p）= 0）或仅前景（αn（p）= 1）。
-<br><br>
+<br>
 一旦得到了 W 和 α，那么原始图像就很容易得到:
-<br><br>
+<br>
 ![](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/fc2.png?raw=true)
-<br><br>
+<br>
 对于单张图像的情况，给定J 去得到 I 是很难的，因为 这个问题是 under-determined， 变量个数大于方程的个数（there are fewer equations than unknowns）
-<br><br>
+<br>
 但是同一个水印通常以同一种方式被加到许多图像上去。对于一组使用了相同的 W 和α 的图像，可以用下面的公式表示 
-<br><br>
+<br>
 ![](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/fc3.png?raw=true)
-<br><br>
+<br>
 对于 K个彩色图像，每个像素有 3K 个方程 和 3(K + 1) + 1 个变量,这个多图像消光问题仍然没有被确定。  
 但是因为 图像集中的 W 和α 的一致性，以及自然图像的先验知识，可以全自动的求解上述问题，得到很高精度的解。
-<br><br>
+<br>
 我们去除水印的算法包括几个步骤，如下图所示： 
 <br>
 ![图2.自动水印提取管道](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/Figure2.png?raw=true)
@@ -80,9 +80,9 @@ I. 估计Matted水印(Estimating the Matted Watermark)
 第一步是对初始的水印位置的估计与检测，核心思想是计算水印图像梯度的中值，通过对 K 张图片的迭代，水印的梯度值会得到收敛，理论上当 K 越大收敛会越好，但事实是某一区间时会达到趋于平稳。对每个像素的x和y方向分别计算。
 <br>
 计算公式：
-<br><br>
+<br>
 ![](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/fc4.png?raw=true)
-<br><br>  
+<br>  
 随着图像数K的增加， 4收敛到真正无水印的梯度Wm =αW，直到移位。 为了证明为什么会这样，我们将Ik和Jk视为随机变量，并计算异常E [∇Jk]。 使用方程 3我们有，
 
 ![](https://github.com/zhanghaichao520/zhanghaichao520.github.io/blob/master/post_img/2018-08-30-%E6%B0%B4%E5%8D%B0%E8%87%AA%E5%8A%A8%E5%8E%BB%E9%99%A4--%E3%80%8AOn%20the%20Effectiveness%20of%20Visible%20Watermarks%E3%80%8B%E8%A7%A3%E8%AF%BB/fc5.png?raw=true)
