@@ -29,7 +29,8 @@ fromCollection(Collection) - 从Java.util.Collection创建一个数据流。coll
 fromCollection(Iterator, Class) - 从一个迭代器中创建一个数据流。class参数明确了迭代器返回的element的类型。
 fromElement(T …) - 从一个给定的对象序列创建一个数据流。所有对象都必须是同一类型的。
 fromParallelCollection(SplittableIterator, Class) - 从一个迭代器中创建一个并行数据流。class参数明确了迭代器返回的element的类型。
-generateSequence(from, to) - 从一个给定区间中生成一个并行数字序列。
+generateSequence(from, to) - 从一个给定区间中生成一个并行数字序列。   
+
 ```
 // Create a DataStream from a list of elements
 DataStream<Integer> myInts = env.fromElements(1, 2, 3, 4, 5);
