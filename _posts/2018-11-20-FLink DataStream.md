@@ -177,15 +177,18 @@ apply方法中的参数类型不一样，join中提供的apply方法，参数是
 基于这2种方式，如果我们的逻辑不仅仅是对一条record做处理，而是要与上一record或更复杂的判断与比较，甚至是对结果排序，那么join中的apply方法显得比较困难。 
 
 17. Connect
-DataStream,DataStream → ConnectedStreams: 连接两个保持他们类型的数据流.
+DataStream,DataStream → ConnectedStreams: 连接两个保持他们类型的数据流.  
+
 ```
 DataStream<Integer> someStream = //...
 DataStream<String> otherStream = //...
 
 ConnectedStreams<Integer, String> connectedStreams = someStream.connect(otherStream);
 ```
+
 CoMap, CoFlatMap
-ConnectedStreams → DataStream 作用于connected 数据流上，功能与map和flatMap一样
+ConnectedStreams → DataStream 作用于connected 数据流上，功能与map和flatMap一样  
+
 ```
 connectedStreams.map(new CoMapFunction<Integer, String, Boolean>() {
 　　@Override
@@ -218,7 +221,8 @@ connectedStreams.flatMap(new CoFlatMapFunction<Integer, String, String>() {
 ```
 
 18. Split
-DataStream → SplitStream: 根据某些特征把一个DataStream拆分成两个或者多个DataStream.
+DataStream → SplitStream: 根据某些特征把一个DataStream拆分成两个或者多个DataStream.  
+
 ```
 SplitStream<Integer> split = someDataStream.split(new OutputSelector<Integer>() {
 　　@Override
@@ -234,11 +238,13 @@ SplitStream<Integer> split = someDataStream.split(new OutputSelector<Integer>() 
 　　}
 });
 
-```
+``` 
+
 Select
 SplitStream -> DataStream
-从SplitStream中选择1个或多个stream
-```
+从SplitStream中选择1个或多个stream  
+
+``` 
 SplitStream<Integer> split;
 DataStream<Integer> even = split.select("even");
 DataStream<Integer> odd = split.select("odd");
@@ -248,7 +254,8 @@ DataStream<Integer> all = split.select("even","odd");
 19. Iterate
 DataStream -> IterativeStream -> DataStream
 通过将一个Operator的输出重定向到前面的某个Operator的方法，在数据流图中创建一个“反馈”循环
-大于0的element被送回到反馈通道，而其他的element则被转发到下游
+大于0的element被送回到反馈通道，而其他的element则被转发到下游  
+
 ```
 IterativeStream<Long> iteration = initialStream.iterate();
 DataStream<Long> iterationBody = iteration.map (/*do something*/);
@@ -266,6 +273,7 @@ DataStream<Long> output = iterationBody.filter(new FilterFunction<Long>(){
 　　}
 });
 ```
+
 一个持续将整数序列中的数字减1知道它们变为0的程序：
 ```
 DataStream<Long> someIntegers = env.generateSequence(0, 1000);
@@ -298,12 +306,14 @@ DataStream<Long> lessThanZero = minusOne.filter(new FilterFunction<Long>() {
 
 20. Extract Timestamps
 DataStream → DataStream 提取记录中的时间戳来跟需要事件时间的window一起发挥作用.
+
 ```
 stream.assignTimestamps (new TimeStampExtractor() {...});
 ```
 
 21. Project
 DataStream -> DataStream  从tuple中选择出域的子集而产生新的DataStream
+
 ```
 DataStream<Tuple3<Integer, Double, String>> in = // [...]
 DataStream<Tuple2<String, Integer>> out = in.project(2,0);
