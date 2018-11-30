@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      Google三大论文之
-subtitle:   分布式文件系统GFS（google File Syste）
+title:      分布式文件系统GFS（google File Syste）
+subtitle:   Google三大论文
 date:       2018-11-30
 author:     zhanghaichao
 header-img: img/post-bg-e2e-ux.jpg
